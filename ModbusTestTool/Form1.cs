@@ -99,7 +99,7 @@ namespace ModbusTestTool
                         break;
                 }
                 //open
-                bool v = PortUtils.Open(port, MODBUS_RATE, parityData, stopBitsData, new SerialDataReceivedEventHandler(CommDataReceived));
+                bool v = PortUtils.Open(port, MODBUS_RATE, dataBits, parityData, stopBitsData, new SerialDataReceivedEventHandler(CommDataReceived));
                 if (v)
                 {
                     //计算间隔时间 1.

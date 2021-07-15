@@ -32,10 +32,11 @@ namespace ModbusTestTool.utils
         /// </summary>
         /// <param name="port">串口名称</param>
         /// <param name="baudRate">波特率</param>
+        /// <param name="dataBits">数据位</param>
         /// <param name="parity">校验位</param>
         /// <param name="stopBits">停止位</param>
         /// <returns>串口是否正常打开</returns>
-        public static bool Open(string port, int baudRate, Parity parity, StopBits stopBits, SerialDataReceivedEventHandler dataReceivedEventHandler)
+        public static bool Open(string port, int baudRate,int dataBits, Parity parity, StopBits stopBits, SerialDataReceivedEventHandler dataReceivedEventHandler)
         {
             if (Serial_Port != null)
             {
@@ -44,7 +45,7 @@ namespace ModbusTestTool.utils
             Serial_Port = new SerialPort(port)
             {
                 BaudRate = baudRate,
-                DataBits = 8,
+                DataBits = dataBits,
                 Parity = parity,
                 StopBits = stopBits
             };
@@ -70,10 +71,11 @@ namespace ModbusTestTool.utils
             /// </summary>
             /// <param name="port">串口名称</param>
             /// <param name="baudRate">波特率</param>
+            /// <param name="dataBits">数据位</param>
             /// <param name="parity">校验位</param>
             /// <param name="stopBits">停止位</param>
             /// <returns>串口是否正常打开</returns>
-            public static bool Open(string port, int baudRate, Parity parity, StopBits stopBits)
+            public static bool Open(string port, int dataBits, int baudRate, Parity parity, StopBits stopBits)
         {
             if (Serial_Port != null)
             {
@@ -82,7 +84,7 @@ namespace ModbusTestTool.utils
             Serial_Port = new SerialPort(port)
             {
                 BaudRate = baudRate,
-                DataBits = 8,
+                DataBits = dataBits,
                 Parity = parity,
                 StopBits = stopBits
             };
