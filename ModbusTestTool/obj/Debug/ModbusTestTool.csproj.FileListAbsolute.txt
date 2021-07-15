@@ -1,0 +1,10 @@
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\bin\Debug\ModbusTestTool.exe.config
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\bin\Debug\ModbusTestTool.exe
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\bin\Debug\ModbusTestTool.pdb
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.csproj.AssemblyReference.cache
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.Form1.resources
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.Properties.Resources.resources
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.csproj.GenerateResource.cache
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.csproj.CoreCompileInputs.cache
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.exe
+C:\Users\xien\source\repos\ModbusTestTool\ModbusTestTool\obj\Debug\ModbusTestTool.pdb
