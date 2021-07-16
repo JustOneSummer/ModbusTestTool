@@ -131,6 +131,8 @@ namespace ModbusTestTool
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
+            //默认选中1
+            this.radioButton1.Checked = true;
             //加载串口列表
             string[] vs = PortUtils.GetPortList();
             foreach (string data in vs)
@@ -211,7 +213,7 @@ namespace ModbusTestTool
         public void DataRes()
         {
             //获取命令
-            string cmd = this.textBoxCmd.Text.Trim();
+            string cmd = GetCmdInfo();
             if (!string.IsNullOrEmpty(cmd))
             {
                 string[] cmdArray = cmd.Split(' ');
@@ -310,16 +312,71 @@ namespace ModbusTestTool
             //发送
             try
             {
-                string vHex = this.textBoxCmd.Text.Replace(" ", string.Empty);
+                string vHex = GetCmdInfo().Replace(" ", string.Empty);
                 byte[] vs = StringToByteArray(vHex);
                 SerialPort serialPort = PortUtils.GetPort();
                 serialPort.Write(vs, 0, vs.Length);
-                commandLog("send => " + this.textBoxCmd.Text);
+                commandLog("send => " + GetCmdInfo());
             }
             catch (Exception et)
             {
                 commandLog("hex转换错误！" + et.Message);
             }
+        }
+
+        /// <summary>
+        /// 获取命令
+        /// </summary>
+        /// <returns></returns>
+        public string GetCmdInfo()
+        {
+            //获取选中的谁
+            if (this.radioButton1.Checked)
+            {
+                return this.textBoxCmd1.Text.Trim();
+            }
+            if (this.radioButton2.Checked)
+            {
+                return this.textBoxCmd2.Text.Trim();
+            }
+            if (this.radioButton3.Checked)
+            {
+                return this.textBoxCmd3.Text.Trim();
+            }
+            if (this.radioButton4.Checked)
+            {
+                return this.textBoxCmd4.Text.Trim();
+            }
+            if (this.radioButton5.Checked)
+            {
+                return this.textBoxCmd5.Text.Trim();
+            }
+            if (this.radioButton6.Checked)
+            {
+                return this.textBoxCmd6.Text.Trim();
+            }
+            if (this.radioButton7.Checked)
+            {
+                return this.textBoxCmd7.Text.Trim();
+            }
+            if (this.radioButton8.Checked)
+            {
+                return this.textBoxCmd8.Text.Trim();
+            }
+            if (this.radioButton9.Checked)
+            {
+                return this.textBoxCmd9.Text.Trim();
+            }
+            if (this.radioButton10.Checked)
+            {
+                return this.textBoxCmd10.Text.Trim();
+            }
+            return "";
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
