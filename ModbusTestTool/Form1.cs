@@ -313,10 +313,24 @@ namespace ModbusTestTool
             try
             {
                 string vHex = GetCmdInfo().Replace(" ", string.Empty);
+                if (vHex == "")
+                {
+                    return;
+                }
                 byte[] vs = StringToByteArray(vHex);
+                //增加crc
+                ushort crcCode = CrcCheck.Check(vs, vs.Length);
+                byte crcOne;
+                byte crcTwo;
+                FromUshortLittle(crcCode, out crcOne, out crcTwo);
+                byte[] value = new byte[vs.Length + 2];
+                vs.CopyTo(value, 0);
+                value[value.Length-2] = crcOne;
+                value[value.Length - 1] = crcTwo;
                 SerialPort serialPort = PortUtils.GetPort();
-                serialPort.Write(vs, 0, vs.Length);
-                commandLog("send => " + GetCmdInfo());
+                serialPort.Write(value, 0, value.Length);
+                string hexString = BitConverter.ToString(value).Replace("-", " ");
+                commandLog("send => " + hexString);
             }
             catch (Exception et)
             {
@@ -377,6 +391,18 @@ namespace ModbusTestTool
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// short to byte[2]  返回小端
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="byte1"></param>
+        /// <param name="byte2"></param>
+        public static void FromUshortLittle(ushort number, out byte byte1, out byte byte2)
+        {
+            byte2 = (byte)(number >> 8);
+            byte1 = (byte)(number & 255);
         }
     }
 }
