@@ -5,6 +5,7 @@ using System.Data;
 using System.IO.Ports;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace ModbusTestTool
 {
@@ -164,6 +165,37 @@ namespace ModbusTestTool
             this.comboBoxStopBits.Items.Add("1.5");
             this.comboBoxStopBits.Items.Add("2");
             this.comboBoxStopBits.SelectedIndex = 0;
+            //加载modbus功能码
+            object[] code = new object[]{
+                    "01",
+                    "02",
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "0F",
+                    "10"
+            };
+            this.comboBoxModbusCode1.Items.AddRange(code);
+            this.comboBoxModbusCode1.SelectedIndex = 2;
+            this.comboBoxModbusCode2.Items.AddRange(code);
+            this.comboBoxModbusCode2.SelectedIndex = 2;
+            this.comboBoxModbusCode3.Items.AddRange(code);
+            this.comboBoxModbusCode3.SelectedIndex = 2;
+            this.comboBoxModbusCode4.Items.AddRange(code);
+            this.comboBoxModbusCode4.SelectedIndex = 2;
+            this.comboBoxModbusCode5.Items.AddRange(code);
+            this.comboBoxModbusCode5.SelectedIndex = 2;
+            this.comboBoxModbusCode6.Items.AddRange(code);
+            this.comboBoxModbusCode6.SelectedIndex = 2;
+            this.comboBoxModbusCode7.Items.AddRange(code);
+            this.comboBoxModbusCode7.SelectedIndex = 2;
+            this.comboBoxModbusCode8.Items.AddRange(code);
+            this.comboBoxModbusCode8.SelectedIndex = 2;
+            this.comboBoxModbusCode9.Items.AddRange(code);
+            this.comboBoxModbusCode9.SelectedIndex = 2;
+            this.comboBoxModbusCode10.Items.AddRange(code);
+            this.comboBoxModbusCode10.SelectedIndex = 2;
         }
 
         /// <summary>
@@ -210,10 +242,10 @@ namespace ModbusTestTool
         /// <summary>
         /// 接收数据返回
         /// </summary>
-        public void DataRes()
+        public void DataRes(byte address)
         {
             //获取命令
-            string cmd = GetCmdInfo();
+            string cmd = GetCmdInfo(address,true);
             if (!string.IsNullOrEmpty(cmd))
             {
                 string[] cmdArray = cmd.Split(' ');
@@ -261,7 +293,7 @@ namespace ModbusTestTool
             commandLog("accept => " + accept);
             if (AUTO)
             {
-                sendData();
+                sendData(bytes[0],true);
             }
             else
             {
@@ -301,18 +333,18 @@ namespace ModbusTestTool
         private void buttonSend_Click(object sender, EventArgs e)
         {
             AUTO = false;
-            sendData();
+            sendData(1,false);
         }
 
         /// <summary>
         /// 主动发送
         /// </summary>
-        public void sendData()
+        public void sendData(int address,bool auto)
         {
             //发送
             try
             {
-                string vHex = GetCmdInfo().Replace(" ", string.Empty);
+                string vHex = GetCmdInfo(address, auto).Replace(" ", string.Empty);
                 if (vHex == "")
                 {
                     return;
@@ -338,54 +370,123 @@ namespace ModbusTestTool
             }
         }
 
+       
         /// <summary>
         /// 获取命令
         /// </summary>
         /// <returns></returns>
-        public string GetCmdInfo()
+        public string GetCmdInfo(int address,bool auto)
         {
-            //获取选中的谁
-            if (this.radioButton1.Checked)
+            if (address < 0 || address > 254)
             {
-                return this.textBoxCmd1.Text.Trim();
+                MessageBox.Show("地址应该在1-254区间");
+                return "";
             }
-            if (this.radioButton2.Checked)
+            if (!auto)
             {
-                return this.textBoxCmd2.Text.Trim();
+                //自动应答
+                //地址
+                string tbma1 = this.textBoxModBusAddress1.Text.Trim();
+                string tbma2 = this.textBoxModBusAddress2.Text.Trim();
+                string tbma3 = this.textBoxModBusAddress3.Text.Trim();
+                string tbma4 = this.textBoxModBusAddress4.Text.Trim();
+                string tbma5 = this.textBoxModBusAddress5.Text.Trim();
+                string tbma6 = this.textBoxModBusAddress6.Text.Trim();
+                string tbma7 = this.textBoxModBusAddress7.Text.Trim();
+                string tbma8 = this.textBoxModBusAddress8.Text.Trim();
+                string tbma9 = this.textBoxModBusAddress9.Text.Trim();
+                string tbma10 = this.textBoxModBusAddress10.Text.Trim();
+                //功能码
+                string cbmc1 = this.comboBoxModbusCode1.Text.Trim();
+                string cbmc2 = this.comboBoxModbusCode2.Text.Trim();
+                string cbmc3 = this.comboBoxModbusCode3.Text.Trim();
+                string cbmc4 = this.comboBoxModbusCode4.Text.Trim();
+                string cbmc5 = this.comboBoxModbusCode5.Text.Trim();
+                string cbmc6 = this.comboBoxModbusCode6.Text.Trim();
+                string cbmc7 = this.comboBoxModbusCode7.Text.Trim();
+                string cbmc8 = this.comboBoxModbusCode8.Text.Trim();
+                string cbmc9 = this.comboBoxModbusCode9.Text.Trim();
+                string cbmc10 = this.comboBoxModbusCode1.Text.Trim();
+                //数据
+                string tbc1 = this.textBoxCmd1.Text.Trim();
+                string tbc2 = this.textBoxCmd2.Text.Trim();
+                string tbc3 = this.textBoxCmd3.Text.Trim();
+                string tbc4 = this.textBoxCmd4.Text.Trim();
+                string tbc5 = this.textBoxCmd5.Text.Trim();
+                string tbc6 = this.textBoxCmd6.Text.Trim();
+                string tbc7 = this.textBoxCmd7.Text.Trim();
+                string tbc8 = this.textBoxCmd8.Text.Trim();
+                string tbc9 = this.textBoxCmd9.Text.Trim();
+                string tbc10 = this.textBoxCmd10.Text.Trim();
+                Dictionary<string, string> CMD = new Dictionary<string, string>(10);
+                CMD.Add(tbma1, AddModbusData(tbma1, cbmc1, tbc1));
+                CMD.Add(tbma1, AddModbusData(tbma2, cbmc2, tbc2));
+                CMD.Add(tbma1, AddModbusData(tbma3, cbmc3, tbc3));
+                CMD.Add(tbma1, AddModbusData(tbma4, cbmc4, tbc4));
+                CMD.Add(tbma1, AddModbusData(tbma5, cbmc5, tbc5));
+                CMD.Add(tbma1, AddModbusData(tbma6, cbmc6, tbc6));
+                CMD.Add(tbma1, AddModbusData(tbma7, cbmc7, tbc7));
+                CMD.Add(tbma1, AddModbusData(tbma8, cbmc8, tbc8));
+                CMD.Add(tbma1, AddModbusData(tbma9, cbmc9, tbc9));
+                CMD.Add(tbma1, AddModbusData(tbma10, cbmc10, tbc10));
             }
-            if (this.radioButton3.Checked)
+            else
             {
-                return this.textBoxCmd3.Text.Trim();
-            }
-            if (this.radioButton4.Checked)
-            {
-                return this.textBoxCmd4.Text.Trim();
-            }
-            if (this.radioButton5.Checked)
-            {
-                return this.textBoxCmd5.Text.Trim();
-            }
-            if (this.radioButton6.Checked)
-            {
-                return this.textBoxCmd6.Text.Trim();
-            }
-            if (this.radioButton7.Checked)
-            {
-                return this.textBoxCmd7.Text.Trim();
-            }
-            if (this.radioButton8.Checked)
-            {
-                return this.textBoxCmd8.Text.Trim();
-            }
-            if (this.radioButton9.Checked)
-            {
-                return this.textBoxCmd9.Text.Trim();
-            }
-            if (this.radioButton10.Checked)
-            {
-                return this.textBoxCmd10.Text.Trim();
+                //获取选中的谁
+                if (this.radioButton1.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress1.Text.Trim(),this.comboBoxModbusCode1.Text.Trim(),this.textBoxCmd1.Text.Trim());
+                }
+                if (this.radioButton2.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress2.Text.Trim(), this.comboBoxModbusCode2.Text.Trim(), this.textBoxCmd2.Text.Trim());
+                }
+                if (this.radioButton3.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress3.Text.Trim(), this.comboBoxModbusCode3.Text.Trim(), this.textBoxCmd3.Text.Trim());
+                }
+                if (this.radioButton4.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress4.Text.Trim(), this.comboBoxModbusCode4.Text.Trim(), this.textBoxCmd4.Text.Trim());
+                }
+                if (this.radioButton5.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress5.Text.Trim(), this.comboBoxModbusCode5.Text.Trim(), this.textBoxCmd5.Text.Trim());
+                }
+                if (this.radioButton6.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress6.Text.Trim(), this.comboBoxModbusCode6.Text.Trim(), this.textBoxCmd6.Text.Trim());
+                }
+                if (this.radioButton7.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress7.Text.Trim(), this.comboBoxModbusCode7.Text.Trim(), this.textBoxCmd7.Text.Trim());
+                }
+                if (this.radioButton8.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress8.Text.Trim(), this.comboBoxModbusCode8.Text.Trim(), this.textBoxCmd8.Text.Trim());
+                }
+                if (this.radioButton9.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress9.Text.Trim(), this.comboBoxModbusCode9.Text.Trim(), this.textBoxCmd9.Text.Trim());
+                }
+                if (this.radioButton10.Checked)
+                {
+                    return AddModbusData(this.textBoxModBusAddress10.Text.Trim(), this.comboBoxModbusCode10.Text.Trim(), this.textBoxCmd10.Text.Trim());
+                }
             }
             return "";
+        }
+
+        /// <summary>
+        /// 合成modbus数据
+        /// </summary>
+        /// <param name="address">十进制</param>
+        /// <param name="code">16进制</param>
+        /// <param name="data">16进制</param>
+        /// <returns></returns>
+        private static string AddModbusData(string address,string code,string data)
+        {
+            return int.Parse(address, System.Globalization.NumberStyles.HexNumber)+" "+code+" "+data;
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
