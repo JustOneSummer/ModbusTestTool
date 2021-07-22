@@ -7,6 +7,10 @@
  
 ![image](https://user-images.githubusercontent.com/28168503/125747230-14effc77-61d8-4323-9420-c156583322dd.png)
 
-# 界面更新
+### 界面更新
 
 ![image](https://user-images.githubusercontent.com/28168503/125915840-643c593f-12a7-46df-9cf8-16d42aa96b55.png)
+
+### 界面更新(最新) 自动计算CRC，应答时会寻找命令列表的地址回复对应的
+
+![image](https://user-images.githubusercontent.com/28168503/126580080-8d8b4702-fb54-44dc-9a47-6e26191e9c6e.png)
