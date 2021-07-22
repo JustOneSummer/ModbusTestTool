@@ -421,6 +421,7 @@ namespace ModbusTestTool
             this.comboBoxModbusCode3.Name = "comboBoxModbusCode3";
             this.comboBoxModbusCode3.Size = new System.Drawing.Size(56, 33);
             this.comboBoxModbusCode3.TabIndex = 54;
+            this.comboBoxModbusCode3.SelectedIndexChanged += new System.EventHandler(this.comboBoxModbusCode3_SelectedIndexChanged);
             // 
             // comboBoxModbusCode4
             // 
@@ -431,6 +432,7 @@ namespace ModbusTestTool
             this.comboBoxModbusCode4.Name = "comboBoxModbusCode4";
             this.comboBoxModbusCode4.Size = new System.Drawing.Size(56, 33);
             this.comboBoxModbusCode4.TabIndex = 55;
+            this.comboBoxModbusCode4.SelectedIndexChanged += new System.EventHandler(this.comboBoxModbusCode4_SelectedIndexChanged);
             // 
             // comboBoxModbusCode5
             // 
@@ -441,6 +443,7 @@ namespace ModbusTestTool
             this.comboBoxModbusCode5.Name = "comboBoxModbusCode5";
             this.comboBoxModbusCode5.Size = new System.Drawing.Size(56, 33);
             this.comboBoxModbusCode5.TabIndex = 56;
+            this.comboBoxModbusCode5.SelectedIndexChanged += new System.EventHandler(this.comboBoxModbusCode5_SelectedIndexChanged);
             // 
             // comboBoxDataBits
             // 

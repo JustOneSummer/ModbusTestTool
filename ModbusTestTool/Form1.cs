@@ -478,5 +478,20 @@ namespace ModbusTestTool
         {
             ComboBoxModbusCode_2 = this.comboBoxModbusCode2.Text.Trim();
         }
+
+        private void comboBoxModbusCode3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxModbusCode_3 = this.comboBoxModbusCode3.Text.Trim();
+        }
+
+        private void comboBoxModbusCode4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxModbusCode_4 = this.comboBoxModbusCode4.Text.Trim();
+        }
+
+        private void comboBoxModbusCode5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxModbusCode_5 = this.comboBoxModbusCode5.Text.Trim();
+        }
     }
 }
