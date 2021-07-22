@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModbusTestTool.utils
 {
-    class ModbusUtils
+    class ComData
     {
     }
 }

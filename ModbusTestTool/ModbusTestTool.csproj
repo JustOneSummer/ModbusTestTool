@@ -54,8 +54,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="utils\ComData.cs" />
     <Compile Include="utils\CrcCheck.cs" />
-    <Compile Include="utils\ModbusUtils.cs" />
     <Compile Include="utils\PortUtils.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
